@@ -58,7 +58,7 @@ function App() {
             <ul>
               {addedFood.map(food => {
                 return(
-                <li><span onClick={() => removeFood(food)}> ❌ </span><span>{food.name}</span>${food.price}</li>
+                <li key={generateUniqueId()}><span onClick={() => removeFood(food)}> ❌ </span><span>{food.name}</span>${food.price}</li>
                 )
               })}
              
