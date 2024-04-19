@@ -1,3 +1,5 @@
+// PastOrders.jsx
+
 export default function PastOrders({ pastOrders }) {
   return (
     <div>
