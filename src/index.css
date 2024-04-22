@@ -68,6 +68,7 @@ main {
 
 .item-name {
   width: 210px;
+  text-align: center;
 }
 td {
   padding: 0.5em;
@@ -147,4 +148,7 @@ footer ul li {
 footer ul li:hover {
   list-style-type: none;
   color: rgb(255, 99, 3);
+}
+
+.item-list {
 }
