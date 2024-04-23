@@ -13,17 +13,28 @@ function App() {
   const addMenuItem = (idx) => {
 
     const item = foodItems[idx]
-    setOrder(prev => 
-      [...prev, item]);
+    setOrder([...order, item]);
       
-    setTotal(prevTotal => prevTotal + item.price);
+    setTotal(total + item.price);
   }
 
-  const removeFromList = () => {
-    
+  const removeFromList = (idx) => {
+
+    const currentOrderList = [...order];
+
+    const filteredOrder = currentOrderList.filter((item, index) => index !== idx);
+
+    const itemToRemove = currentOrderList[idx].price;
+
+    setTotal(total => total - itemToRemove)
+
+    setOrder(filteredOrder);
   }
 
-
+  const closeOrder = () => {
+    setTotal(0);
+    setOrder([]);
+  }
 
 
   return (
@@ -37,11 +48,14 @@ function App() {
 
                 return (
 
-                  <tr className="item-name" key = {generateUniqueId()} onClick={() => addMenuItem(idx)}> 
-                  <td>{items.image}</td>
-                  {items.name} <br/> <span>{"🌶️".repeat(items.spiceLevel)}</span>
-                  <td>${items.price}</td>
-                  </tr>
+                  <tr className="item-name" key={generateUniqueId()} onClick={() => addMenuItem(idx)}>
+                    <td>{items.image }</td>
+                    <td>
+                      <p>{items.name}</p>
+                      <p className="peppers">{"🌶️".repeat(items.spiceLevel)}</p>
+                    </td>
+                    <td>${items.price}</td>
+                    </tr>
 
                 )
               })}
@@ -52,12 +66,12 @@ function App() {
           <div>
             <h2>Current Order</h2>
             <ul>
-              {order.map(food => {
+              {order.map((food, idx) => {
                 
                 const {name, price} = food;
                 return (
                 
-                <li className="item-list"key={generateUniqueId()}> <p><span>❌</span> {name} ${price}</p></li>
+                <li className="item-list" key={generateUniqueId()} > <p><span onClick={() => removeFromList(idx)} >❌</span> {name} ${price}</p></li>
                 )                
                 })}
 
@@ -65,7 +79,7 @@ function App() {
             <h4>Total: ${total}</h4>
             <div>
               <button>Tidy order</button>
-              <button>Close order</button>
+              <button onClick={() => closeOrder({total, order})}>Close Order</button>
             </div>
           </div>
         </section>

@@ -150,5 +150,8 @@ footer ul li:hover {
   color: rgb(255, 99, 3);
 }
 
-.item-list {
+.peppers { 
+  display: grid;
+  text-align: center;
+  margin: 0;
 }
