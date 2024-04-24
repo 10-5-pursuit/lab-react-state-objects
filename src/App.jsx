@@ -1,25 +1,39 @@
+import React, { useState } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import Menu from "./Menu";
+import CurrentOrder from "./CurrentOrder";
+
 
 function App() {
+  const [total,setTotal] = useState(0);
+  const [currentItems, setCurrentItems] = useState([]);
+  
+
+  function addItem(item){
+
+    setCurrentItems([...currentItems, { ...item}]);
+    setTotal(total + item.price);
+  }
+
+  function deleteItem(idx){
+    const removedItem = currentItems[idx];
+    const updatedOrder = currentItems.filter((item, ind) => ind !== idx);
+    setCurrentItems(updatedOrder);
+    setTotal(total - removedItem.price);
+  }
+
+
   return (
     <div className="App">
       <Header />
       <main>
         <aside>
-          <table></table>
+          <Menu addItem={addItem}/>
         </aside>
         <section>
-          <div>
-            <h2>Current Order</h2>
-            <ul></ul>
-            <h4>Total:</h4>
-            <div>
-              <button>Tidy order</button>
-              <button>Close order</button>
-            </div>
-          </div>
-        </section>
+          <CurrentOrder currentOrder={currentItems} total={total} delItems={deleteItem}/>
+        </section> 
       </main>
       <Footer />
     </div>
